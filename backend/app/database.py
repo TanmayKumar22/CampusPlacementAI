@@ -12,13 +12,21 @@ DATABASE_URL = os.getenv(
     "sqlite:///./campus_placement.db"
 )
 
-# Support PostgreSQL connection URLs
+# Configure PostgreSQL driver
 if DATABASE_URL.startswith("postgres://"):
     DATABASE_URL = DATABASE_URL.replace(
-        "postgres://", "postgresql://", 1
+        "postgres://",
+        "postgresql+psycopg2://",
+        1
+    )
+elif DATABASE_URL.startswith("postgresql://"):
+    DATABASE_URL = DATABASE_URL.replace(
+        "postgresql://",
+        "postgresql+psycopg2://",
+        1
     )
 
-# SQLite needs a special connection argument
+# SQLite configuration
 connect_args = {}
 
 if DATABASE_URL.startswith("sqlite"):
