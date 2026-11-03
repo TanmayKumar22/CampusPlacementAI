@@ -16,7 +16,7 @@ function StudentJobOpportunities({ user }) {
   const [applyError, setApplyError] = useState("");
 
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/jobs/")
+    fetch("https://campus-placement-ai-api.onrender.com/jobs/")
       .then(async (response) => {
         const data = await response.json();
 
@@ -47,7 +47,7 @@ function StudentJobOpportunities({ user }) {
       setMatchResult(null);
 
       const response = await fetch(
-        `http://127.0.0.1:8000/student-match/${user.id}/${selectedJob.id}`
+        `https://campus-placement-ai-api.onrender.com/student-match/${user.id}/${selectedJob.id}`
       );
 
       const data = await response.json();
@@ -73,7 +73,7 @@ function StudentJobOpportunities({ user }) {
       setApplyError("");
 
       const response = await fetch(
-        `http://127.0.0.1:8000/applications/${user.id}/${selectedJob.id}`,
+        `https://campus-placement-ai-api.onrender.com/applications/${user.id}/${selectedJob.id}`,
         {
           method: "POST",
         }

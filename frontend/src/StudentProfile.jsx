@@ -18,7 +18,7 @@ function StudentProfile({ user }) {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    fetch(`http://127.0.0.1:8000/profile/${user.id}`)
+    fetch(`https://campus-placement-ai-api.onrender.com/profile/${user.id}`)
       .then(async (response) => {
         const data = await response.json();
 
@@ -77,7 +77,7 @@ function StudentProfile({ user }) {
       formData.append("file", file);
 
       const response = await fetch(
-        "http://127.0.0.1:8000/resume/extract",
+        "https://campus-placement-ai-api.onrender.com/resume/extract",
         {
           method: "POST",
           body: formData,
@@ -125,7 +125,7 @@ function StudentProfile({ user }) {
       setError("");
 
       const response = await fetch(
-        `http://127.0.0.1:8000/profile/${user.id}`,
+        `https://campus-placement-ai-api.onrender.com/profile/${user.id}`,
         {
           method: "PUT",
           headers: {

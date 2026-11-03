@@ -21,8 +21,8 @@ function Login({ onLogin }) {
       setSuccess("");
 
       const endpoint = isSignup
-        ? "http://127.0.0.1:8000/auth/register"
-        : "http://127.0.0.1:8000/auth/login";
+        ? "https://campus-placement-ai-api.onrender.com/auth/register"
+        : "https://campus-placement-ai-api.onrender.com/auth/login";
 
       const requestBody = isSignup
         ? {

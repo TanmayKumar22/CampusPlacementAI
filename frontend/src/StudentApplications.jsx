@@ -8,7 +8,7 @@ function StudentApplications({ user }) {
   const loadApplications = () => {
     setLoading(true);
 
-    fetch(`http://127.0.0.1:8000/applications/student/${user.id}`)
+    fetch(`https://campus-placement-ai-api.onrender.com/applications/student/${user.id}`)
       .then(async (response) => {
         const data = await response.json();
 

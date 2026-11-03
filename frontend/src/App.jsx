@@ -254,12 +254,12 @@ function Dashboard({ setActivePage }) {
 
       // Get students
       const studentsResponse = await fetch(
-        "http://127.0.0.1:8000/students/"
+        "https://campus-placement-ai-api.onrender.com/students/"
       );
 
       // Get jobs
       const jobsResponse = await fetch(
-        "http://127.0.0.1:8000/jobs/"
+        "https://campus-placement-ai-api.onrender.com/jobs/"
       );
 
       if (!studentsResponse.ok) {
@@ -282,7 +282,7 @@ function Dashboard({ setActivePage }) {
       for (const job of jobsData) {
         try {
           const response = await fetch(
-            `http://127.0.0.1:8000/applications/job/${job.id}`
+            `https://campus-placement-ai-api.onrender.com/applications/job/${job.id}`
           );
 
           if (response.ok) {
@@ -654,7 +654,7 @@ function Students() {
       setError("");
 
       const response = await fetch(
-        "http://127.0.0.1:8000/students/"
+        "https://campus-placement-ai-api.onrender.com/students/"
       );
 
       if (!response.ok) {
@@ -838,7 +838,7 @@ function Jobs() {
   const loadJobs = async () => {
     try {
       setLoading(true);
-      const response = await fetch("http://127.0.0.1:8000/jobs/");
+      const response = await fetch("https://campus-placement-ai-api.onrender.com/jobs/");
 
       if (!response.ok) {
         throw new Error("Failed to load jobs.");
@@ -881,7 +881,7 @@ function Jobs() {
     }
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/jobs/", {
+      const response = await fetch("https://campus-placement-ai-api.onrender.com/jobs/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -1087,7 +1087,7 @@ function Shortlisting() {
       setError("");
 
       const response = await fetch(
-        "http://127.0.0.1:8000/jobs/"
+        "https://campus-placement-ai-api.onrender.com/jobs/"
       );
 
       if (!response.ok) {
@@ -1120,7 +1120,7 @@ function Shortlisting() {
       setError("");
 
       const response = await fetch(
-        `http://127.0.0.1:8000/shortlisting/job/${selectedJobId}`
+        `https://campus-placement-ai-api.onrender.com/shortlisting/job/${selectedJobId}`
       );
 
       if (!response.ok) {
@@ -1162,7 +1162,7 @@ function Shortlisting() {
   ) => {
     try {
       const response = await fetch(
-        "http://127.0.0.1:8000/approvals/",
+        "https://campus-placement-ai-api.onrender.com/approvals/",
         {
           method: "POST",
           headers: {
@@ -1693,7 +1693,7 @@ function Fairness() {
       setError("");
 
       const response = await fetch(
-        "http://127.0.0.1:8000/fairness/audit"
+        "https://campus-placement-ai-api.onrender.com/fairness/audit"
       );
 
       if (!response.ok) {
@@ -1979,7 +1979,7 @@ function Approvals() {
       setError("");
 
       const response = await fetch(
-        "http://127.0.0.1:8000/jobs/"
+        "https://campus-placement-ai-api.onrender.com/jobs/"
       );
 
       const data = await response.json();
@@ -2014,7 +2014,7 @@ function Approvals() {
       setError("");
 
       const response = await fetch(
-        `http://127.0.0.1:8000/applications/job/${selectedJobId}`
+        `https://campus-placement-ai-api.onrender.com/applications/job/${selectedJobId}`
       );
 
       const data = await response.json();
@@ -2060,7 +2060,7 @@ function Approvals() {
           : "Candidate rejected after placement officer review.";
 
       const response = await fetch(
-        `http://127.0.0.1:8000/applications/${applicationId}?status=${status}&reviewer=Placement%20Officer&comments=${encodeURIComponent(
+        `https://campus-placement-ai-api.onrender.com/applications/${applicationId}?status=${status}&reviewer=Placement%20Officer&comments=${encodeURIComponent(
           comments
         )}`,
         {
@@ -2446,7 +2446,7 @@ function StudentSkillGaps({ user }) {
         setError("");
 
         const response = await fetch(
-          "http://127.0.0.1:8000/jobs/"
+          "https://campus-placement-ai-api.onrender.com/jobs/"
         );
 
         const data = await response.json();
@@ -2484,7 +2484,7 @@ function StudentSkillGaps({ user }) {
       setAnalysis(null);
 
       const response = await fetch(
-        `http://127.0.0.1:8000/student-match/${user.id}/${selectedJobId}`
+        `https://campus-placement-ai-api.onrender.com/student-match/${user.id}/${selectedJobId}`
       );
 
       const data = await response.json();
@@ -2710,15 +2710,15 @@ function StudentDashboard({ user, setActivePage }) {
       setError("");
 
       const profileResponse = await fetch(
-        `http://127.0.0.1:8000/profile/${user.id}`
+        `https://campus-placement-ai-api.onrender.com/profile/${user.id}`
       );
 
       const jobsResponse = await fetch(
-        "http://127.0.0.1:8000/jobs/"
+        "https://campus-placement-ai-api.onrender.com/jobs/"
       );
 
       const applicationsResponse = await fetch(
-        `http://127.0.0.1:8000/applications/student/${user.id}`
+        `https://campus-placement-ai-api.onrender.com/applications/student/${user.id}`
       );
 
       if (!profileResponse.ok) {
