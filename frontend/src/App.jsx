@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import Login from "./Login";
+import Login from "./login";
 import StudentProfile from "./StudentProfile";
 import StudentJobOpportunities from "./StudentJobOpportunities";
 import StudentApplications from "./StudentApplications";
