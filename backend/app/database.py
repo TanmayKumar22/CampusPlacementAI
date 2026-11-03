@@ -1,11 +1,33 @@
-from sqlalchemy import create_engine
+
+import os
+
+from dotenv import load_dotenv
+from sqlalchemy import create_engine, inspect
 from sqlalchemy.orm import declarative_base, sessionmaker
 
-DATABASE_URL = "sqlite:///./campus_placement.db"
+load_dotenv()
+
+DATABASE_URL = os.getenv(
+    "DATABASE_URL",
+    "sqlite:///./campus_placement.db"
+)
+
+# Support PostgreSQL connection URLs
+if DATABASE_URL.startswith("postgres://"):
+    DATABASE_URL = DATABASE_URL.replace(
+        "postgres://", "postgresql://", 1
+    )
+
+# SQLite needs a special connection argument
+connect_args = {}
+
+if DATABASE_URL.startswith("sqlite"):
+    connect_args = {"check_same_thread": False}
 
 engine = create_engine(
     DATABASE_URL,
-    connect_args={"check_same_thread": False}
+    connect_args=connect_args,
+    pool_pre_ping=True
 )
 
 SessionLocal = sessionmaker(
@@ -24,27 +46,28 @@ def get_db():
     finally:
         db.close()
 
+
 def upgrade_users_table():
-    with engine.connect() as connection:
-        columns = connection.exec_driver_sql(
-            "PRAGMA table_info(users)"
-        ).fetchall()
+    inspector = inspect(engine)
 
-        existing_columns = {column[1] for column in columns}
+    if not inspector.has_table("users"):
+        return
 
-        if "degree" not in existing_columns:
-            connection.exec_driver_sql(
-                "ALTER TABLE users ADD COLUMN degree VARCHAR(150)"
-            )
+    existing_columns = {
+        column["name"]
+        for column in inspector.get_columns("users")
+    }
 
-        if "skills" not in existing_columns:
-            connection.exec_driver_sql(
-                "ALTER TABLE users ADD COLUMN skills TEXT"
-            )
+    required_columns = {
+        "degree": "VARCHAR(150)",
+        "skills": "TEXT",
+        "resume_text": "TEXT"
+    }
 
-        if "resume_text" not in existing_columns:
-            connection.exec_driver_sql(
-                "ALTER TABLE users ADD COLUMN resume_text TEXT"
-            )
-
-        connection.commit()
+    with engine.begin() as connection:
+        for column_name, column_type in required_columns.items():
+            if column_name not in existing_columns:
+                connection.exec_driver_sql(
+                    f"ALTER TABLE users ADD COLUMN "
+                    f"{column_name} {column_type}"
+                )
